@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  car_rent_backend:
+    build: 
+      context: php_image
+    container_name: car_rent_backend
+    ports:
+      - "8080:8080"
+    volumes:
+      - ../backend:/var/dev/php
+    environment:
+      - MONGODB_DATABASE=car_rent
+      - MONGODB_USERNAME=root
+      - MONGODB_PASSWORD=root
+  car_rent_mongodb:
+    image: mongo:latest
+    container_name: car_rent_mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/mongodb:/data/db
+    restart: always
+    environment:
+      - MONGO_INITDB_DATABASE=car_rent
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
